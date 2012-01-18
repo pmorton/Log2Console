@@ -58,6 +58,7 @@ namespace Log2Console.Settings
         private bool _recursivlyEnableLoggers = true;
         private bool _hideTaskbarIcon = false;
         private bool _notifyNewLogWhenHidden = true;
+        private bool _notifyWindowsProgressState = false;
         private bool _alwaysOnTop = false;
         private uint _transparency = 100;
         private bool _highlightLogger = true;
@@ -255,6 +256,15 @@ namespace Log2Console.Settings
         {
             get { return _notifyNewLogWhenHidden; }
             set { _notifyNewLogWhenHidden = value; }
+        }
+
+        [Category("Notification")]
+        [Description("Use windows 7 progress state to notify incomming Log Messages.")]
+        [DisplayName("Use windows 7 progress state")]
+        public bool NotifyWindowsProgressState
+        {
+            get { return _notifyWindowsProgressState; }
+            set { _notifyWindowsProgressState = value; }
         }
 
         [Category("Notification")]
