@@ -43,7 +43,7 @@ namespace Log2Console
     private bool _addedLogMessage;
     private readonly ThumbnailToolbarButton _pauseWinbarBtn;
     private readonly ThumbnailToolbarButton _autoScrollWinbarBtn;
-    private readonly ThumbnailToolbarButton _clearAllWinbarBtn;
+    private readonly ThumbnailToolbarButton _clearLogWinbarBtn;
 
     private readonly Queue<LogMessage> _eventQueue;
     private Timer _logMsgTimer;
@@ -121,12 +121,12 @@ namespace Log2Console
           _autoScrollWinbarBtn.Click += autoLogToggleBtn_Click;
 
           // Clear All Btn
-          _clearAllWinbarBtn =
-              new ThumbnailToolbarButton(Icon.FromHandle(((Bitmap)clearLoggersBtn.Image).GetHicon()), clearLoggersBtn.ToolTipText);
-          _clearAllWinbarBtn.Click += clearAll_Click;
+          this._clearLogWinbarBtn =
+              new ThumbnailToolbarButton(Icon.FromHandle(((Bitmap)clearBtn.Image).GetHicon()), clearBtn.ToolTipText);
+          this._clearLogWinbarBtn.Click += clearBtn_Click;
 
           // Add Btns
-          TaskbarManager.Instance.ThumbnailToolbars.AddButtons(Handle, _pauseWinbarBtn, _autoScrollWinbarBtn, _clearAllWinbarBtn);
+          TaskbarManager.Instance.ThumbnailToolbars.AddButtons(Handle, _pauseWinbarBtn, _autoScrollWinbarBtn, this._clearLogWinbarBtn);
         }
         catch (Exception)
         {
@@ -571,7 +571,7 @@ namespace Log2Console
 
     private void OnTaskbarProgressTimer(object o)
     {
-      if (_isWin7orLater)
+        if (_isWin7orLater && UserSettings.Instance.NotifyWindowsProgressState)
       {
         TaskbarManager.Instance.SetProgressState(_addedLogMessage
                                                         ? TaskbarProgressBarState.Indeterminate
